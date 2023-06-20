@@ -1,0 +1,17 @@
+<launch>
+  <arg name="input/radar_objects_1" default="/front_radar/objects_raw"/>
+  <arg name="input/radar_objects_2" default="/rear_radar/objects_raw"/>
+  <arg name="output/radar_objects" default="/sensing/radar/front_center/objects_raw"/>
+  <arg name="update_rate_hz" default="20.0"/>
+  <arg name="target_frame" default="base_link" />
+  <arg name="merge_dist_th" default="0.1" />
+
+  <node pkg="multi_radar_fusion" exec="multi_radar_fusion_node" name="multi_radar_fusion" output="screen">
+    <remap from="~/input/radar_objects_1" to="$(var input/radar_objects_1)"/>
+    <remap from="~/input/radar_objects_2" to="$(var input/radar_objects_2)"/>
+    <remap from="~/output/radar_objects" to="$(var output/radar_objects)"/>
+    <param name="update_rate_hz" value="$(var update_rate_hz)"/>
+    <param name="target_frame" value="$(var target_frame)"/>
+  </node>
+  
+</launch>
